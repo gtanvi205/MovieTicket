@@ -1,6 +1,8 @@
 package com.movei.service;
 
 import com.movei.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -9,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class MoveiService {
+    private static final Logger logger = LoggerFactory.getLogger(MoveiService.class);
 
     private static final double ADULT_PRICE = 25.0;
     private static final double SENIOR_DISCOUNT = 0.30;
@@ -34,6 +37,8 @@ public class MoveiService {
 
                 TicketType type = classify(customer.getAge());
                 countMap.put(type, countMap.getOrDefault(type, 0) + 1);
+                logger.info("customer age {} and type {}", customer.getAge(), type);
+
             }
             List<TicketDetails> details = new ArrayList<>();
             double totalCost = 0;
@@ -44,10 +49,11 @@ public class MoveiService {
                 if (quantity > 0) {
                     double price = getPrice(type, quantity);
                     details.add(new TicketDetails(type.name(), quantity, price));
+                    logger.info("Ticket type: {}, Quantity: {}, Price: {}", type, quantity, price);
                     totalCost += price;
                 }
             }
-
+            logger.info("Total cost calculated: {}", totalCost);
             details.sort(Comparator.comparing(TicketDetails::getTicketType));
             return new TransactionResponse(request.getTransactionId(), details, totalCost);
 
@@ -82,5 +88,4 @@ public class MoveiService {
                     return 0;
             }
         }
-
 }
