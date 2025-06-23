@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/ticket")
 @Tag(name = "Movie Tickets", description = "API for calculating movie ticket prices")
-public class MoveiContoller {
+public class MoveiController {
 
     @Autowired
     MoveiService moveiService;

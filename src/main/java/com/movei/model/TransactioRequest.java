@@ -7,6 +7,11 @@ public class TransactioRequest {
 private int transactionId;
 private List<CustomerDetails> customerDetails;
 
+    public TransactioRequest(int transactionId, List<CustomerDetails> customers) {
+        this.transactionId = transactionId;
+        this.customerDetails = customers;
+    }
+
     public int getTransactionId() {
         return transactionId;
     }
