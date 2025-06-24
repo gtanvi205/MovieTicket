@@ -21,7 +21,7 @@ public class MoveiServiceTest {
         moveiService = new MoveiService();
     }
     @Test
-    void testCalculate_WithSingleAdult() {
+    void testCalculate_WithAdult() {
         List<CustomerDetails> customers = List.of(new CustomerDetails("Tom",30));
         TransactioRequest request = new TransactioRequest(1, customers);
 
@@ -38,7 +38,7 @@ public class MoveiServiceTest {
     }
 
     @Test
-    void testCalculate_WithMixedAges() {
+    void testCalculate_WithAges() {
         List<CustomerDetails> customers = List.of(
                 new CustomerDetails("Neha",10),// Children
                 new CustomerDetails("Tim",17), // Teen
@@ -54,7 +54,7 @@ public class MoveiServiceTest {
     }
 
     @Test
-    void testCalculate_NullCustomerDetails_ShouldThrow() {
+    void testCalculate_WithNullCustomer() {
         TransactioRequest request = new TransactioRequest(1, null);
 
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
@@ -63,7 +63,7 @@ public class MoveiServiceTest {
         assertEquals("Request or customer details cannot be null.", ex.getMessage());
     }
     @Test
-    void testCalculate_WithNegativeAge_ShouldThrow() {
+    void testCalculate_WithNegativeAge() {
         List<CustomerDetails> customers = List.of(new CustomerDetails("John",-5));
         TransactioRequest request = new TransactioRequest(1, customers);
 
